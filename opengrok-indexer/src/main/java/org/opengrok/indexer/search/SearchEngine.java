@@ -367,7 +367,7 @@ public class SearchEngine {
                     // search the index database
                     //NOTE this assumes that src does not contain any project, just
                     // data files - so no authorization can be enforced
-                    searchSingleDatabase(root, true);
+                    searchSingleDatabase(root, false);
                 } else {
                     // search all projects
                     //TODO support paging per project (in search.java)
