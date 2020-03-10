@@ -1199,11 +1199,8 @@ public class IndexDatabase {
                             // In such case, instruct removeFile() not to remove history
                             // cache for the file so that incremental history cache
                             // generation works.
-
-                            // sbrzozowski (3/6/20): Added an immediate call to args.works.add() instead of relying on the case below.
                             String termPath = Util.uid2url(uidIter.term().utf8ToString());
                             removeFile(!termPath.equals(path));
-                            args.works.add(new IndexFileWork(file, path));
 
                             BytesRef next = uidIter.next();
                             if (next == null) {
@@ -1229,9 +1226,9 @@ public class IndexDatabase {
                                 continue; // keep matching docs
                             }
                         }
-                    } else {
-                        args.works.add(new IndexFileWork(file, path));
                     }
+
+                    args.works.add(new IndexFileWork(file, path));
                 }
             }
         }
