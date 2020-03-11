@@ -1199,8 +1199,13 @@ public class IndexDatabase {
                             // In such case, instruct removeFile() not to remove history
                             // cache for the file so that incremental history cache
                             // generation works.
-                            String termPath = Util.uid2url(uidIter.term().utf8ToString());
-                            removeFile(!termPath.equals(path));
+
+                            // sbrzozowski 3/10/20: encountering old indices shouldn't delete the
+                            // whole file, and should instead delete the offending index alone.
+                            writer.deleteDocuments(new Term(QueryBuilder.U, uidIter.term()));
+                            // previous lines below:
+                            // String termPath = Util.uid2url(uidIter.term().utf8ToString());
+                            // removeFile(!termPath.equals(path));
 
                             BytesRef next = uidIter.next();
                             if (next == null) {
